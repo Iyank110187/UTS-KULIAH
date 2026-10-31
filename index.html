@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Yohana-TI-Darmajaya</title>
+    <!-- Google Fonts & Bootstrap -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    <link href="https://jsdelivr.net" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #eef2f7 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            margin: 0;
+        }
+
+        
+        .calculator-widget {
+            width: 100%;
+            max-width: 360px; 
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            padding: 24px;
+        }
+
+        .calc-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 2px;
+        }
+
+        .form-label-sm {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #64748b;
+            text-uppercase: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .input-custom {
+            background-color: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .input-custom:focus {
+            background-color: #fff;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            outline: none;
+        }
+
+        .btn-hitung {
+            background: #4f46e5;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: white;
+            transition: all 0.2s ease;
+        }
+
+        .btn-hitung:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+        }
+
+        
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .result-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .result-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        
+        .author-footer {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1.5px dashed #e2e8f0;
+            text-align: center;
+        }
+
+        .author-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 2px;
+        }
+
+        .author-meta {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator-widget">
+    
+    <!-- Header -->
+    <div class="text-center mb-4">
+        <h1 class="calc-title">Hello, world!</h1>
+        <p class="text-muted" style="font-size: 0.8rem; margin: 0;">Kalkulator Sederhana</p>
+    </div>
+
+    <!-- Bagian Input -->
+    <div class="row g-2 mb-3">
+        <div class="col-6">
+            <label for="nilaiA" class="form-label-sm">Nilai A</label>
+            <input type="number" class="form-control input-custom" id="nilaiA" value="4">
+        </div>
+        <div class="col-6">
+            <label for="nilaiB" class="form-label-sm">Nilai B</label>
+            <input type="number" class="form-control input-custom" id="nilaiB" value="5">
+        </div>
+    </div>
+
+    <!-- Tombol Hitung -->
+    <div class="d-grid mb-4">
+        <button type="button" class="btn btn-hitung" onclick="hitung()">Hitung</button>
+    </div>
+
+    <!-- Bagian Hasil Operasi -->
+    <div>
+        <div class="result-row">
+            <span class="result-label">Penjumlahan (+)</span>
+            <span class="result-value" id="resJumlah">-</span>
+        </div>
+        <div class="result-row">
+            <span class="result-label">Pengurangan (-)</span>
+            <span class="result-value" id="resKurang">-</span>
+        </div>
+        <div class="result-row">
+            <span class="result-label">Perkalian (×)</span>
+            <span class="result-value" id="resKali">-</span>
+        </div>
+        <div class="result-row mb-0">
+            <span class="result-label">Pembagian (÷)</span>
+            <span class="result-value" id="resBagi">-</span>
+        </div>
+    </div>
+
+    <!-- Footer Profil Terintegrasi -->
+    <div class="author-footer">
+        <div class="author-name">Yohana Christy Relyana Sembiring</div>
+        <div class="author-meta">NPM 2411019002p • TI Darmajaya</div>
+    </div>
+
+</div>
+
+<!-- JavaScript Logika -->
+<script>
+    function hitung() {
+        let nilaiA = parseFloat(document.getElementById('nilaiA').value);
+        let nilaiB = parseFloat(document.getElementById('nilaiB').value);
+
+        if (isNaN(nilaiA)) nilaiA = 0;
+        if (isNaN(nilaiB)) nilaiB = 0;
+
+        let hasilJumlah = nilaiA + nilaiB;
+        let hasilKurang = nilaiA - nilaiB;
+        let hasilKali = nilaiA * nilaiB;
+        
+        let hasilBagi;
+        if (nilaiB === 0) {
+            hasilBagi = "∞";
+        } else {
+            hasilBagi = (nilaiA / nilaiB).toFixed(2).replace(/\.00$/, '');
+        }
+
+        document.getElementById('resJumlah').innerText = hasilJumlah;
+        document.getElementById('resKurang').innerText = hasilKurang;
+        document.getElementById('resKali').innerText = hasilKali;
+        document.getElementById('resBagi').innerText = hasilBagi;
+    }
+
+    // Eksekusi kalkulasi otomatis saat halaman dimuat
+    window.onload = function() {
+        hitung();
+    };
+</script>
+
+<script src="https://jsdelivr.net"></script>
+</body>
+</html>
